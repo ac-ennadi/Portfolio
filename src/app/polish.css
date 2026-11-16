@@ -51,4 +51,9 @@ body{background:#040506;color:#e6e6e6;overflow-x:hidden}body:before{display:none
 .contact-form label{font-size:12px}
 .contact-aside>.eyebrow,.social-list>.eyebrow{font:12px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;text-transform:none}
 .email-copy span{font:11px var(--font-ui),var(--font-ui-fallback)!important;letter-spacing:0}
+@property --edge-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes edge-travel{to{--edge-angle:360deg}}
+:where(.project-card,.thumb,.skill-card,.portrait-image,.project-modal,.command-palette,.filter,.scope,.button){position:relative;isolation:isolate}
+:where(.project-card,.thumb,.skill-card,.portrait-image,.project-modal,.command-palette,.filter,.scope,.button)::after{content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;pointer-events:none;z-index:2;opacity:.7;background:conic-gradient(from var(--edge-angle),transparent 0deg 305deg,rgba(43,177,255,.12) 326deg,#2bb1ff 344deg,rgba(43,177,255,.08) 356deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:edge-travel 5s linear infinite}
+@media(prefers-reduced-motion:reduce){:where(.project-card,.thumb,.skill-card,.portrait-image,.project-modal,.command-palette,.filter,.scope,.button)::after{animation:none;opacity:.25}}
 @media(max-width:760px){.timeline-item{grid-template-columns:1fr;gap:8px}.skill-group{grid-template-columns:105px 1fr}}

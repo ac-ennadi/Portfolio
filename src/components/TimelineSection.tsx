@@ -4,10 +4,10 @@ export default function TimelineSection() {
   return (
     <section className="section" id="experience">
       <div className="section-heading">
-        <p className="eyebrow">03 / Experience</p>
-        <h2>Work & Education</h2>
+        <p className="eyebrow">Experience</p>
+        <h2>Where I’ve Worked & Studied</h2>
         <p className="section-note">
-          Academic foundations, freelance production work, and software development engagements.
+          My education at UM6P, engineering internships, and freelance commercial video work.
         </p>
       </div>
 

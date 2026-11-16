@@ -2,11 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 
-const scopes = ["Engineering & Systems", "Commercial Video", "Both / Full Project"];
+const scopes = ["Software & Web", "Commercial Video", "Both"];
 const email = "achrafennadiri@gmail.com";
 
 export default function ContactSection() {
-  const [scope, setScope] = useState(scopes[2]);
+  const [scope, setScope] = useState(scopes[0]);
   const [opened, setOpened] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -36,10 +36,10 @@ export default function ContactSection() {
   return (
     <section className="section" id="contact">
       <div className="section-heading">
-        <p className="eyebrow">04 / Contact</p>
-        <h2>Initiate Contact</h2>
+        <p className="eyebrow">Contact</p>
+        <h2>Get in Touch</h2>
         <p className="section-note">
-          Have an engineering or production brief? Dispatch a message below.
+          Have a software project, internship opportunity, or video edit in mind? Let’s talk.
         </p>
       </div>
 
@@ -47,22 +47,22 @@ export default function ContactSection() {
         <form className="contact-form" onSubmit={submit}>
           {opened ? (
             <div className="form-success" role="status">
-              <p className="eyebrow">Status: Draft Dispatched</p>
-              <h3>Your default mail client has opened.</h3>
-              <p>If your mail client didn’t launch automatically, use the direct copy action to send your note.</p>
+              <p className="eyebrow">Email Prepared</p>
+              <h3>Opening your email client...</h3>
+              <p>If your email app didn’t open, you can copy the address on the right to reach me directly.</p>
               <button
                 className="button button-quiet"
                 type="button"
                 onClick={() => setOpened(false)}
               >
-                Modify message
+                Back to form
               </button>
             </div>
           ) : (
             <>
               <div>
                 <p className="form-label" style={{ marginBottom: "12px" }}>
-                  Project Domain
+                  What are you looking for?
                 </p>
                 <div className="scope-pills">
                   {scopes.map((s) => (
@@ -87,7 +87,7 @@ export default function ContactSection() {
                     name="name"
                     required
                     minLength={2}
-                    placeholder="Achraf Ennadiri"
+                    placeholder="Your name"
                     autoComplete="name"
                   />
                 </label>
@@ -97,39 +97,39 @@ export default function ContactSection() {
                     name="email"
                     type="email"
                     required
-                    placeholder="achraf@example.com"
+                    placeholder="you@example.com"
                     autoComplete="email"
                   />
                 </label>
               </div>
 
               <label>
-                Project Scope & Details
+                Message
                 <textarea
                   name="details"
                   required
                   minLength={12}
                   rows={4}
-                  placeholder="Outline the technical requirements, timeline, or visual expectations…"
+                  placeholder="Tell me a bit about the project, role, or timeline…"
                 />
               </label>
 
               <button className="button button-primary" type="submit" style={{ alignSelf: "flex-start" }}>
-                Send Project Brief <span>↗</span>
+                Send Email <span>↗</span>
               </button>
             </>
           )}
         </form>
 
         <aside className="contact-aside">
-          <p className="form-label" style={{ marginBottom: "12px" }}>Direct Channel</p>
+          <p className="form-label" style={{ marginBottom: "12px" }}>Direct Email</p>
           <button className="email-copy" onClick={copy} type="button">
             <span>{email}</span>
-            <span>{copied ? "Copied ✓" : "Copy ⌘C"}</span>
+            <span>{copied ? "Copied" : "Copy"}</span>
           </button>
 
           <div className="social-list">
-            <p className="form-label" style={{ marginBottom: "8px" }}>Network & Profiles</p>
+            <p className="form-label" style={{ marginBottom: "8px" }}>Links</p>
             <a href="https://github.com/achrafennadiri" target="_blank" rel="noreferrer">
               GitHub <span>github.com/achrafennadiri ↗</span>
             </a>

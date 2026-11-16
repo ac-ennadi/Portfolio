@@ -23,12 +23,12 @@ export default function Navbar() {
         </button>
         <div className={`nav-links ${open ? "is-open" : ""}`}>
           <a href="#work" onClick={() => setOpen(false)}>Work</a>
-          <a href="#capabilities" onClick={() => setOpen(false)}>Capabilities</a>
+          <a href="#capabilities" onClick={() => setOpen(false)}>Skills</a>
           <a href="#experience" onClick={() => setOpen(false)}>Experience</a>
           <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
         </div>
         <a className="nav-cta" href="#contact">
-          Initiate Project
+          Get in Touch
         </a>
       </nav>
     </header>

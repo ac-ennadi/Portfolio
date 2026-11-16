@@ -7,10 +7,10 @@ import ProjectThumbnail from "@/components/ProjectThumbnail";
 import ProjectModal from "@/components/ProjectModal";
 
 const filters: { label: string; value: ProjectCategory | "all" }[] = [
-  { label: "All work", value: "all" },
-  { label: "Systems & Low-Level", value: "systems" },
-  { label: "Full-Stack Web", value: "fullstack" },
-  { label: "Creative & Commercial", value: "creative" },
+  { label: "All", value: "all" },
+  { label: "Systems & C/C++", value: "systems" },
+  { label: "Web", value: "fullstack" },
+  { label: "Video", value: "creative" },
 ];
 
 export default function ProjectsSection() {
@@ -39,7 +39,7 @@ export default function ProjectsSection() {
       gsap.fromTo(
         grid.current.querySelectorAll(".project-card"),
         { y: 12, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.3, stagger: 0.05, ease: "power2.out" }
+        { y: 0, autoAlpha: 1, duration: 0.28, stagger: 0.04, ease: "power2.out" }
       );
     }
   }, [visible]);
@@ -47,10 +47,10 @@ export default function ProjectsSection() {
   return (
     <section className="section" id="work">
       <div className="section-heading">
-        <p className="eyebrow">01 / Selected Work</p>
-        <h2>Featured Projects</h2>
+        <p className="eyebrow">Work</p>
+        <h2>Selected Projects</h2>
         <p className="section-note">
-          Systems programming, developer utilities, full-stack applications, and commercial visual direction.
+          Software I’ve written in C/C++, full-stack web platforms, and commercial video work.
         </p>
       </div>
 
@@ -77,7 +77,7 @@ export default function ProjectsSection() {
           >
             <ProjectThumbnail type={p.visualType} />
             <div className="project-meta">
-              <span>{p.category === "fullstack" ? "Full-Stack" : p.category === "systems" ? "Systems" : "Commercial"}</span>
+              <span>{p.category === "fullstack" ? "Web" : p.category === "systems" ? "C/C++" : "Video"}</span>
               <span>{p.year}</span>
             </div>
             <h3>

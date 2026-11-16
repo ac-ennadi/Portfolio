@@ -10,15 +10,15 @@ type Command = {
 };
 
 const commands: Command[] = [
-  { label: "All Projects", detail: "Display complete body of work", kind: "filter", value: "all" },
-  { label: "Systems & Low-Level", detail: "C/C++, Unix, Graphics engines", kind: "filter", value: "systems" },
-  { label: "Full-Stack Web", detail: "Next.js, TypeScript, Backend services", kind: "filter", value: "fullstack" },
-  { label: "Commercial & Video", detail: "Video editing, motion, and visual direction", kind: "filter", value: "creative" },
-  { label: "Jump to Work", detail: "Navigate to selected projects", kind: "section", value: "work" },
-  { label: "Jump to Capabilities", detail: "Review technical stack & tools", kind: "section", value: "capabilities" },
-  { label: "Jump to Experience", detail: "Review timeline & education", kind: "section", value: "experience" },
-  { label: "Jump to Contact", detail: "Initiate project inquiry", kind: "section", value: "contact" },
-  { label: "Copy Email Address", detail: "achrafennadiri@gmail.com", kind: "copy", value: "achrafennadiri@gmail.com" },
+  { label: "All Projects", detail: "Show all selected work", kind: "filter", value: "all" },
+  { label: "Systems & Low-Level", detail: "C/C++, Unix, Raycasting", kind: "filter", value: "systems" },
+  { label: "Full-Stack Web", detail: "Next.js, TypeScript, APIs", kind: "filter", value: "fullstack" },
+  { label: "Commercial Video", detail: "Video editing and motion graphics", kind: "filter", value: "creative" },
+  { label: "Go to Work", detail: "Jump to projects section", kind: "section", value: "work" },
+  { label: "Go to Skills", detail: "Jump to technical skills", kind: "section", value: "capabilities" },
+  { label: "Go to Experience", detail: "Jump to background & education", kind: "section", value: "experience" },
+  { label: "Go to Contact", detail: "Jump to contact form", kind: "section", value: "contact" },
+  { label: "Copy Email", detail: "achrafennadiri@gmail.com", kind: "copy", value: "achrafennadiri@gmail.com" },
 ];
 
 export default function CommandPalette() {
@@ -120,12 +120,12 @@ export default function CommandPalette() {
               setQuery(e.target.value);
               setActive(0);
             }}
-            placeholder="Type a command or jump to section…"
+            placeholder="Type a command or search..."
           />
           <kbd>ESC</kbd>
         </div>
 
-        <p className="palette-label">NAVIGATION & ACTIONS</p>
+        <p className="palette-label">Quick Actions</p>
 
         <div className="palette-results" role="listbox">
           {filtered.map((c, i) => (
@@ -139,7 +139,7 @@ export default function CommandPalette() {
               type="button"
             >
               <span className="palette-symbol">
-                {c.kind === "section" ? "↗" : c.kind === "filter" ? "⌘" : "▣"}
+                {c.kind === "section" ? "↗" : c.kind === "filter" ? "⌘" : "→"}
               </span>
               <span className="palette-row-copy">
                 <b>{c.label}</b>
@@ -148,19 +148,19 @@ export default function CommandPalette() {
               <span className="palette-enter">↵</span>
             </button>
           ))}
-          {filtered.length === 0 && <p className="palette-empty">No matching commands found.</p>}
+          {filtered.length === 0 && <p className="palette-empty">No results found.</p>}
         </div>
 
         <footer className="palette-footer">
           <span>
             <kbd>↑</kbd>
-            <kbd>↓</kbd> NAVIGATE
+            <kbd>↓</kbd> to navigate
           </span>
           <span>
-            <kbd>↵</kbd> SELECT
+            <kbd>↵</kbd> to select
           </span>
           <span>
-            ACHRAF ENNADIRI <b>◆</b>
+            Achraf Ennadiri
           </span>
         </footer>
       </section>

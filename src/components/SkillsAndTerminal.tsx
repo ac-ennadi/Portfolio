@@ -8,23 +8,23 @@ const engineering = [
     skills: ["React", "Next.js", "Node.js", "Spring Boot", "FastAPI", "Tailwind CSS"],
   },
   {
-    title: "SYSTEMS & INFRASTRUCTURE",
-    skills: ["Linux / Unix", "Docker", "PostgreSQL", "Git", "REST APIs", "CI/CD"],
+    title: "SYSTEMS & TOOLS",
+    skills: ["Linux / Unix", "Docker", "PostgreSQL", "Git", "REST APIs"],
   },
 ];
 
 const creative = [
   {
     title: "POST-PRODUCTION",
-    skills: ["Premiere Pro", "After Effects", "DaVinci Resolve", "Color Grading"],
+    skills: ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Color Grading"],
   },
   {
-    title: "INTERACTIVE & UI",
-    skills: ["Design Systems", "GSAP Animations", "Tailwind v4", "Raycast UI Specs"],
+    title: "INTERACTIVE & WEB",
+    skills: ["GSAP Animations", "UI Systems", "Responsive Design"],
   },
   {
-    title: "DIRECTION & PRODUCTION",
-    skills: ["Commercial Video", "Storyboarding", "Audio Engineering", "Brand Direction"],
+    title: "VIDEO & DIRECTION",
+    skills: ["Commercial Video", "Storyboarding", "Audio Post"],
   },
 ];
 
@@ -32,17 +32,17 @@ export default function SkillsAndTerminal() {
   return (
     <section className="section" id="capabilities">
       <div className="section-heading">
-        <p className="eyebrow">02 / Capabilities</p>
-        <h2>Technical Stack & Direction</h2>
+        <p className="eyebrow">Skills</p>
+        <h2>Technical & Creative Skills</h2>
         <p className="section-note">
-          Engineering disciplines and post-production tools applied to real-world products.
+          Languages, frameworks, and production tools I use day to day.
         </p>
       </div>
 
       <div className="skills-grid">
         {[
-          { title: "Systems & Software Engineering", groups: engineering },
-          { title: "Visual Direction & Production", groups: creative },
+          { title: "Software & Systems", groups: engineering },
+          { title: "Video & Motion", groups: creative },
         ].map((card) => (
           <article className="skill-card" key={card.title}>
             <h3>{card.title}</h3>

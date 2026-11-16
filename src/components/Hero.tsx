@@ -16,8 +16,8 @@ export default function Hero() {
     () => {
       gsap.fromTo(
         ".hero-enter",
-        { y: 20, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, ease: "power2.out" }
+        { y: 16, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: "power2.out" }
       );
     },
     { scope: root }
@@ -26,48 +26,38 @@ export default function Hero() {
   return (
     <section className="hero section" id="top" ref={root}>
       <div className="hero-copy">
-        <p className="hero-kicker hero-enter">Software Engineering & Visual Systems</p>
+        <p className="hero-kicker hero-enter">Software Engineering & Video Direction</p>
         <h1 className="hero-enter">
           Engineering systems.<br />
           <em>Directing visuals.</em>
         </h1>
         <p className="hero-sub hero-enter">
-          Software engineering student at UM6P in Benguerir. Building C/C++ systems, high-performance web applications, and directing commercial video.
+          Software engineering student at UM6P in Benguerir. I build low-level C/C++ programs, web apps, and direct commercial video.
         </p>
         <div className="hero-actions hero-enter">
           <a href="#work" className="button button-primary">
-            Explore Selected Work <span>↘</span>
+            View Projects <span>↘</span>
           </a>
           <button className="button button-quiet" onClick={openPalette} type="button">
             Command Palette <span>⌘K</span>
           </button>
         </div>
         <p className="hero-foot hero-enter">
-          v1.0.4 · Ben Guerir, Morocco · Full-Stack & Systems · Press ⌘K
+          Based in Benguerir, Morocco.
         </p>
       </div>
 
-      <figure className="portrait-window hero-enter">
-        <div className="window-chrome">
-          <div className="window-dots">
-            <i aria-hidden="true" />
-            <i aria-hidden="true" />
-            <i aria-hidden="true" />
-          </div>
-          <span>achraf_ennadiri.sys</span>
-          <span style={{ color: "var(--color-coral-pulse)" }}>LIVE</span>
-        </div>
+      <div className="portrait-wrap hero-enter">
         <div className="portrait-image">
           <Image
             src="/images/achraf-portrait.png"
-            alt="Achraf Ennadiri in a softly lit studio"
+            alt="Achraf Ennadiri"
             fill
             priority
-            sizes="(max-width: 760px) 90vw, 46vw"
+            sizes="(max-width: 760px) 90vw, 42vw"
           />
         </div>
-        <figcaption>Achraf Ennadiri · UM6P Benguerir, Morocco</figcaption>
-      </figure>
+      </div>
     </section>
   );
 }

@@ -130,14 +130,14 @@ export default function ContactSection() {
 
           <div className="social-list">
             <p className="form-label" style={{ marginBottom: "8px" }}>Links</p>
-            <a href="https://github.com/achrafennadiri" target="_blank" rel="noreferrer">
-              GitHub <span>github.com/achrafennadiri ↗</span>
+            <a href="https://github.com/ac-ennadi" target="_blank" rel="noreferrer">
+              GitHub <span>github.com/ac-ennadi ↗</span>
             </a>
-            <a href="https://www.linkedin.com/in/achrafennadiri/" target="_blank" rel="noreferrer">
-              LinkedIn <span>in/achrafennadiri ↗</span>
+            <a href="https://www.linkedin.com/in/achraf-ennadiri/" target="_blank" rel="noreferrer">
+              LinkedIn <span>in/achraf-ennadiri ↗</span>
             </a>
-            <a href="https://www.instagram.com/achrafennadiri/" target="_blank" rel="noreferrer">
-              Instagram <span>@achrafennadiri ↗</span>
+            <a href="https://www.instagram.com/ac_ennadi/" target="_blank" rel="noreferrer">
+              Instagram <span>@ac_ennadi ↗</span>
             </a>
           </div>
         </aside>

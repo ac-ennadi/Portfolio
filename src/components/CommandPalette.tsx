@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 type Command = {
   label: string;
   detail: string;
-  kind: "section" | "filter" | "copy";
+  kind: "section" | "filter" | "copy" | "link";
   value: string;
 };
 
@@ -18,6 +18,8 @@ const commands: Command[] = [
   { label: "Go to Skills", detail: "Jump to technical skills", kind: "section", value: "capabilities" },
   { label: "Go to Experience", detail: "Jump to background & education", kind: "section", value: "experience" },
   { label: "Go to Contact", detail: "Jump to contact form", kind: "section", value: "contact" },
+  { label: "Open GitHub Profile", detail: "github.com/ac-ennadi", kind: "link", value: "https://github.com/ac-ennadi" },
+  { label: "Open LinkedIn Profile", detail: "in/achraf-ennadiri", kind: "link", value: "https://www.linkedin.com/in/achraf-ennadiri/" },
   { label: "Copy Email", detail: "achrafennadiri@gmail.com", kind: "copy", value: "achrafennadiri@gmail.com" },
 ];
 
@@ -47,6 +49,8 @@ export default function CommandPalette() {
         document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" });
       } else if (command.kind === "section") {
         document.getElementById(command.value)?.scrollIntoView({ behavior: "smooth" });
+      } else if (command.kind === "link") {
+        window.open(command.value, "_blank", "noopener,noreferrer");
       } else {
         try {
           await navigator.clipboard.writeText(command.value);

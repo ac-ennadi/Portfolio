@@ -10,7 +10,7 @@ export default function Hero(){
  useGSAP(()=>{gsap.fromTo(".hero-enter",{y:24,autoAlpha:0},{y:0,autoAlpha:1,duration:.75,stagger:.1,ease:"power3.out"})},{scope:root});
  return <section className="hero section" id="top" ref={root}>
   <div className="hero-copy">
-   <p className="hero-kicker hero-enter">SOFTWARE ENGINEER <span>×</span> CREATIVE DIRECTOR</p>
+   <p className="hero-kicker hero-enter">Software engineering student and filmmaker</p>
    <h1 className="hero-enter">Engineering systems.<br/><em>Directing visuals.</em></h1>
    <p className="hero-sub hero-enter">Software engineering student at UM6P in Benguerir. I build C/C++ systems and web apps, and direct and edit commercial video.</p>
    <div className="hero-actions hero-enter"><a href="#work" className="button button-primary">Explore Selected Work <span>↘</span></a><button className="button button-quiet" onClick={openPalette}>Open Command Palette <span>⌘K</span></button></div>

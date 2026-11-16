@@ -8,3 +8,4 @@ body{background:#040506;color:#e6e6e6;overflow-x:hidden}body:before{display:none
 .footer{font:11px var(--font-ui),var(--font-ui-fallback);letter-spacing:0}.footer .brand{font:500 13px var(--font-ui),var(--font-ui-fallback);letter-spacing:0}.footer>span{color:#6a6b6c}.copy-note:empty{display:none}.contact-aside .email-copy span{color:#9c9c9d}.scope.active{background:#1b1c1e;border-color:#454647;color:#fff}
 .cursor-shapes{position:fixed;inset:0;z-index:2;display:block;pointer-events:none;mix-blend-mode:screen}
 @media(pointer:coarse), (prefers-reduced-motion:reduce){.cursor-shapes{display:none}}
+.hero .hero-kicker{color:#aaa9b0;font:13px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;text-transform:none}

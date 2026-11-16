@@ -1,3 +1,36 @@
 "use client";
-import {useState} from "react";
-export default function Navbar(){const[open,setOpen]=useState(false);return <header className="nav-wrap"><nav className="navbar"><a className="brand" href="#top" aria-label="Achraf Ennadiri home"><span className="brand-mark">◆</span><span>Achraf Ennadiri</span></a><button className="menu-toggle" onClick={()=>setOpen(!open)} aria-expanded={open} aria-label="Toggle navigation">{open?"Close":"Menu"}</button><div className={`nav-links ${open?"is-open":""}`}><a href="#work" onClick={()=>setOpen(false)}>Work</a><a href="#capabilities" onClick={()=>setOpen(false)}>Capabilities</a><a href="#experience" onClick={()=>setOpen(false)}>Experience</a><a href="#terminal" onClick={()=>setOpen(false)}>Terminal</a><a href="#contact" onClick={()=>setOpen(false)}>Contact</a></div><a className="nav-cta" href="#contact">Start a Project</a></nav></header>}
+
+import { useState } from "react";
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="nav-wrap">
+      <nav className="navbar">
+        <a className="brand" href="#top" aria-label="Achraf Ennadiri home">
+          <span className="brand-mark">◆</span>
+          <span>Achraf Ennadiri</span>
+        </a>
+        <button
+          className="menu-toggle"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label="Toggle navigation"
+          type="button"
+        >
+          {open ? "Close" : "Menu"}
+        </button>
+        <div className={`nav-links ${open ? "is-open" : ""}`}>
+          <a href="#work" onClick={() => setOpen(false)}>Work</a>
+          <a href="#capabilities" onClick={() => setOpen(false)}>Capabilities</a>
+          <a href="#experience" onClick={() => setOpen(false)}>Experience</a>
+          <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
+        </div>
+        <a className="nav-cta" href="#contact">
+          Initiate Project
+        </a>
+      </nav>
+    </header>
+  );
+}

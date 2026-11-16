@@ -1,5 +1,67 @@
-const engineering=[{title:"LANGUAGES",skills:["C","C++","Python","Java","TypeScript"]},{title:"FRAMEWORKS",skills:["React","Next.js","Spring Boot","FastAPI","Flask"]},{title:"INFRASTRUCTURE",skills:["PostgreSQL","Docker","Linux / Unix","Git"]}];
-const creative=[{title:"POST-PRODUCTION",skills:["Premiere Pro","After Effects","Color Grading"]},{title:"INTERACTIVE",skills:["GSAP","ScrollTrigger","UI/UX Systems"]},{title:"DIRECTION",skills:["Commercial Reels","Storyboarding"]}];
-export default function SkillsAndTerminal(){
- return <section className="section" id="capabilities"><div className="section-heading"><div><p className="eyebrow">02 / CAPABILITIES</p><h2>Skills & tools</h2></div><p className="section-note">Tools I use across software and video work.</p></div><div className="skills-grid">{[{title:"Engineering & Systems",groups:engineering},{title:"Video & Visual Design",groups:creative}].map(card=><article className="skill-card" key={card.title}><h3>{card.title}</h3>{card.groups.map(g=><div className="skill-group" key={g.title}><p>{g.title.toLowerCase()}</p><div className="skill-list">{g.skills.map((s,i)=><span key={s}>{i>0&&<i aria-hidden="true">·</i>}{s}</span>)}</div></div>)}</article>)}</div></section>
+const engineering = [
+  {
+    title: "LANGUAGES",
+    skills: ["C", "C++", "Python", "Java", "TypeScript", "SQL"],
+  },
+  {
+    title: "FRAMEWORKS & RUNTIMES",
+    skills: ["React", "Next.js", "Node.js", "Spring Boot", "FastAPI", "Tailwind CSS"],
+  },
+  {
+    title: "SYSTEMS & INFRASTRUCTURE",
+    skills: ["Linux / Unix", "Docker", "PostgreSQL", "Git", "REST APIs", "CI/CD"],
+  },
+];
+
+const creative = [
+  {
+    title: "POST-PRODUCTION",
+    skills: ["Premiere Pro", "After Effects", "DaVinci Resolve", "Color Grading"],
+  },
+  {
+    title: "INTERACTIVE & UI",
+    skills: ["Design Systems", "GSAP Animations", "Tailwind v4", "Raycast UI Specs"],
+  },
+  {
+    title: "DIRECTION & PRODUCTION",
+    skills: ["Commercial Video", "Storyboarding", "Audio Engineering", "Brand Direction"],
+  },
+];
+
+export default function SkillsAndTerminal() {
+  return (
+    <section className="section" id="capabilities">
+      <div className="section-heading">
+        <p className="eyebrow">02 / Capabilities</p>
+        <h2>Technical Stack & Direction</h2>
+        <p className="section-note">
+          Engineering disciplines and post-production tools applied to real-world products.
+        </p>
+      </div>
+
+      <div className="skills-grid">
+        {[
+          { title: "Systems & Software Engineering", groups: engineering },
+          { title: "Visual Direction & Production", groups: creative },
+        ].map((card) => (
+          <article className="skill-card" key={card.title}>
+            <h3>{card.title}</h3>
+            {card.groups.map((g) => (
+              <div className="skill-group" key={g.title}>
+                <p>{g.title}</p>
+                <div className="skill-list">
+                  {g.skills.map((s, i) => (
+                    <span key={s}>
+                      {i > 0 && <i aria-hidden="true">·</i>}
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }

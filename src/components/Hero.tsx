@@ -16,6 +16,6 @@ export default function Hero(){
    <div className="hero-actions hero-enter"><a href="#work" className="button button-primary">Explore Selected Work <span>↘</span></a><button className="button button-quiet" onClick={openPalette}>Open Command Palette <span>⌘K</span></button></div>
    <p className="hero-foot hero-enter">Based in Ben Guerir, Morocco.</p>
   </div>
-  <div className="portrait-window hero-enter"><div className="window-chrome"><span className="window-dots"><i/><i/><i/></span><span>ACHRAF ENNADIRI · UM6P BENGUERIR</span></div><div className="portrait-image"><Image src="/images/achraf-portrait.png" alt="Achraf Ennadiri in a softly lit studio" fill priority sizes="(max-width: 760px) 90vw, 46vw"/><div className="portrait-vignette"/></div><div className="portrait-badge"><i/><span>BEN GUERIR, MA <b>·</b> AVAILABLE FOR ENGINEERING & CREATIVE</span></div></div>
+  <figure className="portrait-window hero-enter"><div className="portrait-image"><Image src="/images/achraf-portrait.png" alt="Achraf Ennadiri in a softly lit studio" fill priority sizes="(max-width: 760px) 90vw, 46vw"/></div><figcaption>Achraf Ennadiri · Benguerir, Morocco</figcaption></figure>
  </section>
 }

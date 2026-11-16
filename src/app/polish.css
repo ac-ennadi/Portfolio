@@ -6,6 +6,40 @@ body{background:#040506;color:#e6e6e6;overflow-x:hidden}body:before{display:none
 .hero-foot{margin-top:24px;color:#9c9c9d;font:13px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;text-transform:none}.timeline-rail{left:13px}.timeline-index{position:relative;z-index:2}
 @media(max-width:760px){.timeline-rail{left:13px}}
 .footer{font:11px var(--font-ui),var(--font-ui-fallback);letter-spacing:0}.footer .brand{font:500 13px var(--font-ui),var(--font-ui-fallback);letter-spacing:0}.footer>span{color:#6a6b6c}.copy-note:empty{display:none}.contact-aside .email-copy span{color:#9c9c9d}.scope.active{background:#1b1c1e;border-color:#454647;color:#fff}
-.cursor-shapes{position:fixed;inset:0;z-index:2;display:block;pointer-events:none;mix-blend-mode:screen}
-@media(pointer:coarse), (prefers-reduced-motion:reduce){.cursor-shapes{display:none}}
+.cursor-lines{position:fixed;inset:0;z-index:2;display:block;pointer-events:none;mix-blend-mode:screen}
+@media(pointer:coarse), (prefers-reduced-motion:reduce){.cursor-lines{display:none}}
 .hero .hero-kicker{color:#aaa9b0;font:13px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;text-transform:none}
+.portrait-window{display:block;margin:0;overflow:visible;background:transparent;border:0;border-radius:0;box-shadow:none}
+.portrait-image{overflow:hidden;border-radius:3px;aspect-ratio:4/4.7}
+.portrait-image img{object-position:center 43%}
+.portrait-window figcaption{padding-top:11px;color:#8b8c8d;font:12px var(--font-ui),var(--font-ui-fallback);letter-spacing:0}
+.skill-card,.project-card{border-radius:3px;box-shadow:none}
+.skill-card{padding:20px 0;border:0;border-top:1px solid #292a2b;background:transparent}
+.skill-card h3{margin:0 0 15px;font-size:18px;font-weight:500;letter-spacing:-.025em}
+.skill-group{display:grid;grid-template-columns:145px 1fr;gap:14px;align-items:start;padding:12px 0;border-top:1px solid rgba(255,255,255,.06)}
+.skill-group>p{margin:2px 0;color:#8b8c8d;font:12px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;text-transform:capitalize}
+.skill-list{display:flex;flex-wrap:wrap;gap:0 8px;color:#d0d1d2;font:12px/1.7 var(--font-ui),var(--font-ui-fallback)}
+.skill-list span{display:inline-flex;gap:8px}.skill-list i{color:#626365;font-style:normal}
+.project-card{border-color:transparent;border-bottom:1px solid #292a2b;padding:8px 0 18px;background:transparent}
+.project-card:hover,.project-card.mode-match{border-color:#454647;box-shadow:none}
+.thumb{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:6px;height:146px;padding:18px;border:0;border-radius:2px;background:#0b0c0d}
+.thumb-project-name{color:#dfe0e1;font:500 20px var(--font-ui),var(--font-ui-fallback);letter-spacing:-.035em}
+.thumb-project-note{color:#8d8e90;font:12px var(--font-ui),var(--font-ui-fallback)}
+.project-meta{margin-top:13px;font:11px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;color:#88898a}
+.project-card>p{font-size:12px}.project-stack{margin-top:12px!important;color:#8b8c8d!important;font-size:11px!important}
+.tag{display:none}
+.timeline-list{padding:0}.timeline-rail,.timeline-index{display:none}
+.timeline-item{grid-template-columns:150px minmax(0,1fr);gap:24px;padding:23px 0;border-top:1px solid #292a2b}
+.timeline-period{margin:3px 0;color:#929394;font:12px var(--font-ui),var(--font-ui-fallback)}
+.timeline-content h3{font-size:17px;font-weight:500;letter-spacing:-.02em}
+.timeline-content h4{margin-top:5px;color:#a7a8a9;font-size:12px}
+.timeline-content>p:last-child{margin-top:10px;color:#929394;font-size:13px;line-height:1.65}
+.form-label{font:13px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;color:#d0d1d2}
+.scope-pills{gap:17px}.scope{padding:4px 0;border:0;border-bottom:1px solid transparent;border-radius:0;color:#929394;font-size:12px}
+.scope.active{color:#f0f0f0;border-color:#ff6363;background:transparent}
+.contact-form input,.contact-form textarea{border-radius:2px;background:rgba(255,255,255,.018);font-size:12px}
+.contact-form label{font-size:12px}
+.contact-aside>.eyebrow,.social-list>.eyebrow{font:12px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;text-transform:none}
+.email-copy span{font:11px var(--font-ui),var(--font-ui-fallback)!important;letter-spacing:0}
+@media(pointer:fine){body,a,button,[role=button]{cursor:url("/images/cursor.svg") 2 1,auto}}
+@media(max-width:760px){.timeline-item{grid-template-columns:1fr;gap:8px}.skill-group{grid-template-columns:105px 1fr}}

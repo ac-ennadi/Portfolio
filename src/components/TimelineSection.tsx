@@ -1,8 +1,2 @@
-"use client";
-import {useRef} from "react";
-import gsap from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {useGSAP} from "@gsap/react";
 import {timeline} from "@/data/portfolioData";
-gsap.registerPlugin(ScrollTrigger,useGSAP);
-export default function TimelineSection(){const root=useRef<HTMLElement>(null);useGSAP(()=>{gsap.fromTo(".timeline-progress",{scaleY:0},{scaleY:1,ease:"none",scrollTrigger:{trigger:root.current,start:"top 65%",end:"bottom 65%",scrub:true}});gsap.fromTo(".timeline-item",{y:14,autoAlpha:0},{y:0,autoAlpha:1,stagger:.14,duration:.45,ease:"power2.out",scrollTrigger:{trigger:root.current,start:"top 68%"}})},{scope:root});return <section className="section" id="experience" ref={root}><div className="section-heading"><div><p className="eyebrow">03 / EXPERIENCE</p><h2>Experience</h2></div><p className="section-note">Education, freelance work, and software development.</p></div><div className="timeline-list"><div className="timeline-rail"><i className="timeline-progress"/></div>{timeline.map((item,i)=><article className="timeline-item" key={item.organization}><span className="timeline-index">0{i+1}</span><div className="timeline-content"><p className="eyebrow">{item.period}</p><h3>{item.title}</h3><h4>{item.organization}</h4><p>{item.description}</p></div></article>)}</div></section>}
+export default function TimelineSection(){return <section className="section" id="experience"><div className="section-heading"><div><p className="eyebrow">Experience</p><h2>Where I’ve worked</h2></div><p className="section-note">Education, freelance work, and software development.</p></div><div className="timeline-list">{timeline.map(item=><article className="timeline-item" key={item.organization}><p className="timeline-period">{item.period}</p><div className="timeline-content"><h3>{item.title}</h3><h4>{item.organization}</h4><p>{item.description}</p></div></article>)}</div></section>}

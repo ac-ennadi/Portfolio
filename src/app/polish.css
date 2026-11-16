@@ -41,5 +41,5 @@ body{background:#040506;color:#e6e6e6;overflow-x:hidden}body:before{display:none
 .contact-form label{font-size:12px}
 .contact-aside>.eyebrow,.social-list>.eyebrow{font:12px var(--font-ui),var(--font-ui-fallback);letter-spacing:0;text-transform:none}
 .email-copy span{font:11px var(--font-ui),var(--font-ui-fallback)!important;letter-spacing:0}
-@media(pointer:fine){body,a,button,[role=button]{cursor:url("/images/cursor.svg") 2 1,auto}}
+@media(pointer:fine){*,*::before,*::after{cursor:url("/images/cursor.svg") 2 1,auto!important}}
 @media(max-width:760px){.timeline-item{grid-template-columns:1fr;gap:8px}.skill-group{grid-template-columns:105px 1fr}}

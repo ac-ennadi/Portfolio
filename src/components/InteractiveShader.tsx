@@ -9,12 +9,19 @@ const VERTEX_SHADER = `
   }
 `;
 
+// Inspired by shaders.com FlutedGlass + Swirl + ChromaFlow
 const FRAGMENT_SHADER = `
   precision highp float;
   uniform vec2 u_resolution;
   uniform vec2 u_mouse;
+  uniform vec2 u_mouse_velocity;
   uniform float u_time;
 
+  const float PI = 3.14159265359;
+  const float FLUTE_ANGLE = 30.0 * PI / 180.0; // 30 deg fluted glass
+  const float FLUTE_FREQ = 7.2;
+
+  // Simplex 2D noise
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
@@ -47,6 +54,50 @@ const FRAGMENT_SHADER = `
     return 130.0 * dot(m, g);
   }
 
+  // Color field computation with Swirl & ChromaFlow
+  vec3 sampleColorField(vec2 p, float t, vec2 mousePos, vec2 mouseVel, float mouseDist) {
+    // Palette matched to Achraf's theme:
+    // Void base canvas
+    vec3 colorBase   = vec3(0.025, 0.03, 0.038);    // #06080a
+    vec3 colorIndigo = vec3(0.07, 0.14, 0.32);     // deep space indigo
+    vec3 colorCobalt = vec3(0.14, 0.32, 0.68);     // electric sky / cobalt
+    vec3 colorCoral  = vec3(1.0, 0.388, 0.388);    // #ff6363 Coral Pulse
+    vec3 colorEmber  = vec3(0.35, 0.12, 0.16);     // Ember Hush #452324
+
+    // ChromaFlow velocity & direction
+    float speed = clamp(length(mouseVel) * 16.0, 0.0, 1.0);
+    vec2 dir = normalize(mouseVel + 0.0001);
+
+    // Dynamic directional color (up/down: coral/indigo, left/right: ember/cobalt)
+    vec3 dirColor = mix(colorIndigo, colorCoral, clamp(dir.y * 0.5 + 0.5, 0.0, 1.0));
+    dirColor = mix(dirColor, colorCobalt, clamp(dir.x * 0.5 + 0.5, 0.0, 1.0));
+
+    // Interactive mouse displacement ripple
+    float mouseRadius = 0.52;
+    float mouseInfluence = smoothstep(mouseRadius, 0.0, mouseDist);
+    vec2 mouseForce = (p - mousePos) * mouseInfluence * 0.28;
+
+    // Swirl layers (blend=50, detail=1.7)
+    float detail = 1.6;
+    vec2 q = vec2(
+      snoise(p * detail + vec2(t * 0.28, t * 0.18) + mouseForce),
+      snoise(p * detail + vec2(-t * 0.22, t * 0.32) - mouseForce)
+    );
+
+    float n = snoise(p * 1.35 + q * 1.3 + t * 0.12);
+    float blend = clamp((n + 1.0) * 0.5, 0.0, 1.0);
+
+    // Layer blending
+    vec3 col = mix(colorBase, colorIndigo, blend * 1.5);
+    col = mix(col, colorCobalt, clamp(length(q) * 0.55, 0.0, 1.0));
+
+    // Dynamic coral glow and ChromaFlow reaction around cursor
+    float coralEffect = mouseInfluence * (0.45 + speed * 0.55) + pow(blend, 3.2) * 0.25;
+    col = mix(col, mix(colorCoral, dirColor, 0.45), clamp(coralEffect * 0.7, 0.0, 1.0));
+
+    return col;
+  }
+
   void main() {
     vec2 uv = gl_FragCoord.xy / u_resolution.xy;
     float aspect = u_resolution.x / u_resolution.y;
@@ -57,49 +108,50 @@ const FRAGMENT_SHADER = `
     vec2 m = u_mouse / u_resolution.xy;
     m.x *= aspect;
 
-    // Interactive mouse displacement
-    float dist = length(p - m);
-    float mouseInfluence = smoothstep(0.48, 0.0, dist);
-    vec2 mouseForce = normalize(p - m + 0.0001) * mouseInfluence * 0.16;
+    float t = u_time * 0.22;
 
-    float t = u_time * 0.09;
-
-    // Domain warp layers (inspired by shaders.com ChromaFlow)
-    vec2 q = vec2(
-      snoise(p * 1.4 + vec2(t * 0.5, t * 0.35) + mouseForce),
-      snoise(p * 1.4 + vec2(t * 0.25, -t * 0.45) - mouseForce)
+    // 1. FLUTED GLASS RIGID CYLINDRICAL GEOMETRY (30 degrees)
+    vec2 rotCoord = vec2(
+      p.x * cos(FLUTE_ANGLE) - p.y * sin(FLUTE_ANGLE),
+      p.x * sin(FLUTE_ANGLE) + p.y * cos(FLUTE_ANGLE)
     );
 
-    vec2 r = vec2(
-      snoise(p * 1.8 + 1.1 * q + vec2(1.7, 9.2) + 0.12 * t + mouseForce * 1.2),
-      snoise(p * 1.8 + 1.1 * q + vec2(8.3, 2.8) + 0.10 * t - mouseForce * 1.2)
-    );
+    float flutePhase = rotCoord.x * FLUTE_FREQ * 2.0 * PI;
+    float fluteNormal = cos(flutePhase); // Surface slope for cylindrical lens refraction
 
-    float f = snoise(p * 1.6 + r + mouseForce * 1.8);
-    f = clamp((f + 1.0) * 0.5, 0.0, 1.0);
+    // Refraction along glass cylinder axis
+    vec2 fluteDir = vec2(-sin(FLUTE_ANGLE), cos(FLUTE_ANGLE));
+    float refraction = 0.042;
+    float aberration = 0.024; // Chromatic aberration separation
 
-    // Deep chromatic palette
-    vec3 colorVoid   = vec3(0.02, 0.024, 0.028);     // #050607
-    vec3 colorNavy   = vec3(0.03, 0.07, 0.15);      // deep midnight
-    vec3 colorCobalt = vec3(0.06, 0.18, 0.42);      // cobalt highlight
-    vec3 colorCoral  = vec3(1.0, 0.388, 0.388);     // #ff6363 brand accent
+    // Sample RGB channels with chromatic aberration
+    vec2 pR = p + fluteDir * fluteNormal * (refraction * (1.0 + aberration));
+    vec2 pG = p + fluteDir * fluteNormal * refraction;
+    vec2 pB = p + fluteDir * fluteNormal * (refraction * (1.0 - aberration));
 
-    // Mix deep atmospheric layers
-    vec3 col = mix(colorVoid, colorNavy, f * 1.8);
-    col = mix(col, colorCobalt, clamp(length(q) * 0.4, 0.0, 1.0));
+    vec3 colR = sampleColorField(pR, t, m, u_mouse_velocity, length(pR - m));
+    vec3 colG = sampleColorField(pG, t, m, u_mouse_velocity, length(pG - m));
+    vec3 colB = sampleColorField(pB, t, m, u_mouse_velocity, length(pB - m));
 
-    // Dynamic coral luminescence reacting to mouse interaction & fluid eddies
-    float coralReaction = mouseInfluence * 0.45 + pow(f, 3.5) * 0.25;
-    col = mix(col, colorCoral, clamp(coralReaction * 0.42, 0.0, 1.0));
+    vec3 finalColor = vec3(colR.r, colG.g, colB.b);
 
-    // Subtle edge fade / vignette
-    float vig = smoothstep(1.35, 0.2, length(uv - 0.5));
-    col *= vig;
+    // 2. SPECULAR GLASS RIDGE SHEEN
+    float lightSlope = max(0.0, fluteNormal * 0.65 + 0.35);
+    float glassSpecular = pow(lightSlope, 9.0) * 0.28;
+    float glassEdge = pow(abs(fluteNormal), 3.5) * 0.16;
 
-    // Restrain brightness to keep foreground text high-contrast and readable
-    col = clamp(col * 0.85, 0.0, 1.0);
+    float distToMouse = length(p - m);
+    vec3 specColor = mix(vec3(0.9, 0.95, 1.0), vec3(1.0, 0.45, 0.45), smoothstep(0.42, 0.0, distToMouse));
+    finalColor += specColor * (glassSpecular + glassEdge);
 
-    gl_FragColor = vec4(col, 1.0);
+    // 3. AMBIENT VIGNETTE
+    float vig = smoothstep(1.35, 0.25, length(uv - 0.5));
+    finalColor *= vig;
+
+    // Keep deep and luxurious so foreground text remains 100% crisp
+    finalColor = clamp(finalColor, 0.0, 1.0);
+
+    gl_FragColor = vec4(finalColor, 1.0);
   }
 `;
 
@@ -115,8 +167,11 @@ export default function InteractiveShader() {
     }
 
     const gl =
-      canvas.getContext("webgl", { alpha: false, antialias: false, powerPreference: "high-performance" }) ||
-      (canvas.getContext("experimental-webgl") as WebGLRenderingContext | null);
+      canvas.getContext("webgl", {
+        alpha: false,
+        antialias: false,
+        powerPreference: "high-performance",
+      }) || (canvas.getContext("experimental-webgl") as WebGLRenderingContext | null);
 
     if (!gl) return;
 
@@ -148,7 +203,6 @@ export default function InteractiveShader() {
 
     gl.useProgram(program);
 
-    // Full screen quad buffer
     const quadVertices = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
     const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -160,6 +214,7 @@ export default function InteractiveShader() {
 
     const uResolution = gl.getUniformLocation(program, "u_resolution");
     const uMouse = gl.getUniformLocation(program, "u_mouse");
+    const uMouseVelocity = gl.getUniformLocation(program, "u_mouse_velocity");
     const uTime = gl.getUniformLocation(program, "u_time");
 
     let width = 0;
@@ -168,6 +223,11 @@ export default function InteractiveShader() {
     let targetMouseY = 0;
     let currentMouseX = 0;
     let currentMouseY = 0;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let mouseVelX = 0;
+    let mouseVelY = 0;
+
     let animationFrameId: number;
     let startTime = performance.now();
     let isVisible = true;
@@ -184,18 +244,20 @@ export default function InteractiveShader() {
       gl.uniform2f(uResolution, canvas.width, canvas.height);
     };
 
-    // Center mouse by default
-    targetMouseX = (window.innerWidth * 0.5) * (Math.min(window.devicePixelRatio || 1, 1.5));
-    targetMouseY = (window.innerHeight * 0.4) * (Math.min(window.devicePixelRatio || 1, 1.5));
+    const initDpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    targetMouseX = window.innerWidth * 0.5 * initDpr;
+    targetMouseY = window.innerHeight * 0.5 * initDpr;
     currentMouseX = targetMouseX;
     currentMouseY = targetMouseY;
+    lastMouseX = targetMouseX;
+    lastMouseY = targetMouseY;
 
     handleResize();
 
     const handlePointerMove = (e: PointerEvent) => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       targetMouseX = e.clientX * dpr;
-      targetMouseY = (window.innerHeight - e.clientY) * dpr; // Invert Y for WebGL
+      targetMouseY = (window.innerHeight - e.clientY) * dpr; // WebGL Y is inverted
     };
 
     const handleVisibilityChange = () => {
@@ -208,11 +270,20 @@ export default function InteractiveShader() {
 
     const render = (now: number) => {
       if (isVisible) {
-        // Smooth mouse lerping
+        // Smooth lerp for mouse position
         currentMouseX += (targetMouseX - currentMouseX) * 0.08;
         currentMouseY += (targetMouseY - currentMouseY) * 0.08;
 
+        // Calculate velocity for ChromaFlow effect
+        const vx = (currentMouseX - lastMouseX) * 0.01;
+        const vy = (currentMouseY - lastMouseY) * 0.01;
+        mouseVelX += (vx - mouseVelX) * 0.15;
+        mouseVelY += (vy - mouseVelY) * 0.15;
+        lastMouseX = currentMouseX;
+        lastMouseY = currentMouseY;
+
         gl.uniform2f(uMouse, currentMouseX, currentMouseY);
+        gl.uniform2f(uMouseVelocity, mouseVelX, mouseVelY);
         gl.uniform1f(uTime, (now - startTime) * 0.001);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);

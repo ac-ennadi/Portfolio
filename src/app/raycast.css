@@ -62,7 +62,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--color-void-black);
+  background-color: transparent !important;
   color: var(--color-mist);
   font-family: var(--font-inter);
   font-size: var(--text-body);
@@ -72,15 +72,22 @@ body {
   overflow-x: hidden;
 }
 
-/* GPU Shader Canvas (shaders.com inspired interactive fluid canvas) */
+/* GPU Shader Canvas (shaders.com: FlutedGlass + Swirl + ChromaFlow) */
 .interactive-shader-canvas {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.9;
+}
+
+main,
+.footer,
+.modal-backdrop,
+.palette-backdrop {
+  position: relative;
+  z-index: 2;
 }
 
 ::selection {
@@ -308,16 +315,7 @@ button, input, textarea {
 
 /* Subtle, tasteful ambient backdrop (no loud neon blobs) */
 .hero::before {
-  content: "";
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  width: 480px;
-  height: 380px;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(20, 60, 140, 0.12), transparent 70%);
-  filter: blur(60px);
-  z-index: -1;
+  display: none;
 }
 
 .hero-copy {

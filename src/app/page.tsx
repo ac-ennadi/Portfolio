@@ -7,10 +7,12 @@ import SkillsAndTerminal from "@/components/SkillsAndTerminal";
 import TimelineSection from "@/components/TimelineSection";
 import ContactSection from "@/components/ContactSection";
 import CommandPalette from "@/components/CommandPalette";
+import InteractiveShader from "@/components/InteractiveShader";
 
 export default function Page() {
   return (
     <>
+      <InteractiveShader />
       <Navbar />
       <CommandPalette />
       <main>

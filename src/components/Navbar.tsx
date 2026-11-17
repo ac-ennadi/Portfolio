@@ -28,7 +28,7 @@ export default function Navbar() {
           <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
         </div>
         <a className="nav-cta" href="#contact">
-          Get in Touch
+          Get in Touch <span>↗</span>
         </a>
       </nav>
     </header>
